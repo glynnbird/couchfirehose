@@ -1,0 +1,34 @@
+{
+  "name": "couchfirehose",
+  "version": "1.0.0",
+  "description": "CouchDB data transfer tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run standard",
+    "start": "node index.js",
+    "standard": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/glynnbird/firehose.git"
+  },
+  "keywords": [
+    "CouchDB"
+  ],
+  "author": "Glynn Bird <glynn.bird@gmail.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "standard": "^14.3.1"
+  },
+  "dependencies": {
+    "@cloudant/cloudant": "^4.2.3",
+    "changesreader": "^1.2.9",
+    "debug": "^4.1.1",
+    "nano": "^8.1.0",
+    "qrate": "^1.2.0",
+    "yargs": "^15.1.0"
+  },
+  "bin": {
+    "couchfirehose": "bin/couchfirehose.bin.js"
+  }
+}
