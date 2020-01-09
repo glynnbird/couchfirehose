@@ -76,7 +76,6 @@ let changesFeedEnded = false
 const start = ms()
 
 const main = async () => {
-  console.log(config)
   const opts = {
     wait: true,
     fastChanges: true,
