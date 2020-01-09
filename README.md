@@ -1,12 +1,14 @@
 # couchfirehose
 
-A proof-of-concept tool that allows Cloudant/CouchDB data to be transferred between a source database and a target database. This **is not** replication:
+A proof-of-concept tool that allows Cloudant/CouchDB data to be transferred quickly between a source database and a target database. This **is not** replication:
 
 - It doesn't transfer every revision of every document. Only the winners.
 - It doesn't transfer attachments.
 - It optionally doesn't transfer deleted documents.
 - It optionally doesn't transfer design documents documents.
 - It can optionally transform the document in transit.
+
+It is faster than replication but gets its speed by assuming that the source database is static and the the target database is empty. 
 
 ## How does it work?
 
@@ -33,6 +35,7 @@ Both producer and consumer are configured using command-line parameters:
 - `--filterdeletions`/`--fd` - whether to omit deleted documents from the data transfer. (Default false)
 - `--resetrev`/`-r` - omits the revision token, resetting the targets revisions to `1-xxx'. (Default false)
 - `--transform` - the path of synchronous JavaScript transformation function. (Default null)
+- `--selector` - a selector query used to filter the source's documents. (Default null)
 
  or environment variables:
 
@@ -45,10 +48,11 @@ Both producer and consumer are configured using command-line parameters:
 - `FILTER_DELETIONS` - whether to omit deleted documents from the data transfer. (Default false)
 - `RESET_REV` - omits the revision token, resetting the targets revisions to `1-xxx'. (Default false)
 - `TRANSFORM` - the path of synchronous JavaScript transformation function. (Default null)
+- `SELECTOR` - a selector query used to filter the source's documents. (Default null)
 
 ## Usage
 
-Command-line paramters:
+Command-line parameters:
 
 ```sh
 > couchfirehose -s 'https://u:p@host.cloudant.com/source' -t 'https://u:p@host.cloudant.com/target'
@@ -66,14 +70,18 @@ Environment variables:
 
 - to ignore deleted documents, pass `--filterdeletions true` on the command line.
 - to ignore design documents, pass `--filterdesigndocs true` on the command line.
+- to filter by a custom _selector_, pass your selector using `--selector` on the command line.
 
 e.g.
 
 ```sh
+> # ignore deletions and design docs
 > couchfirehose -s "$URL/source" -t "$URL/target" --filterdeletions true --filterdesigndocs true
+> # only include documents that pass the supplied filter
+> couchfirehose -s "$URL/source" -t "$URL/target" --selector '{"country": "ZA"}'
 ```
 
-## Example transform function
+## Transforming data during transfer
 
 To transfer the form of the documents in flight, supply the path of a file that contains an exported
 filter function.
@@ -109,3 +117,7 @@ Pass the path to the function file as the `--transform parameter`:
 ```sh
 > couchfirehose -s "$URL/source" -t "$URL/target" --transform ./transformer.js
 ```
+
+## Discussion
+
+The _couchfirehose_ utility can transfer data from source to target faster than replication, but it isn't doing the same job as only winning revisions are transferred and attachments are dropped. Proceed with caution if your source database is changing when running _couchfirehose_ or if your target database is not empty. 

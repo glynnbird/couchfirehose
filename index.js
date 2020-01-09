@@ -76,6 +76,7 @@ let changesFeedEnded = false
 const start = ms()
 
 const main = async () => {
+  console.log(config)
   const opts = {
     wait: true,
     fastChanges: true,
@@ -83,7 +84,9 @@ const main = async () => {
     includeDocs: true,
     batchSize: CHANGES_BATCH_SIZE
   }
-  if (config.FILTER_DELETIONS) {
+  if (config.SELECTOR) {
+    opts.selector = config.SELECTOR
+  } else if (config.FILTER_DELETIONS) {
     opts.selector = {
       _deleted: {
         $exists: false
