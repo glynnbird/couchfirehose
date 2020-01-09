@@ -120,4 +120,4 @@ Pass the path to the function file as the `--transform parameter`:
 
 ## Discussion
 
-The _couchfirehose_ utility can transfer data from source to target faster than replication, but it isn't doing the same job as only winning revisions are transferred and attachments are dropped. Proceed with caution if your source database is changing when running _couchfirehose_ or if your target database is not empty. 
+The _couchfirehose_ utility can transfer data from source to target faster than replication, but it isn't doing the same job as only winning revisions are transferred and attachments are dropped. Proceed with caution if your source database is changing when running _couchfirehose_ or if your target database is not empty.
