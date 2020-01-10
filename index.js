@@ -1,22 +1,10 @@
 const config = require('./lib/config.js')
-const debug = require('debug')('firehose')
+const debug = require('debug')('couchfirehose')
 
 // cloudant connection for target writes
-const protocol = require('https')
-const myagent = new protocol.Agent({
-  keepAlive: true,
-  keepAliveMsecs: 60000,
-  maxSockets: config.CONCURRENCY + 1
-})
-const Cloudant = require('@cloudant/cloudant')
-const cloudant = Cloudant({
-  url: config.TARGET_URL,
-  plugins: ['retry'],
-  requestDefaults: {
-    agent: myagent
-  }
-})
-const targetdb = cloudant.db.use(config.TARGET_DATABASE_NAME)
+const Nano = require('nano')
+const targetNano = Nano(config.TARGET_URL)
+const targetdb = targetNano.db.use(config.TARGET_DATABASE_NAME)
 
 // nano library pointing to our CouchDB instance
 // changes reader instance configured for our source database

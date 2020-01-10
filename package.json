@@ -1,6 +1,6 @@
 {
   "name": "couchfirehose",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CouchDB data transfer tool",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,6 @@
     "standard": "^14.3.1"
   },
   "dependencies": {
-    "@cloudant/cloudant": "^4.2.3",
     "changesreader": "^1.2.9",
     "debug": "^4.1.1",
     "nano": "^8.1.0",

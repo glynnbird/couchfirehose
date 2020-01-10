@@ -121,3 +121,14 @@ Pass the path to the function file as the `--transform parameter`:
 ## Discussion
 
 The _couchfirehose_ utility can transfer data from source to target faster than replication, but it isn't doing the same job as only winning revisions are transferred and attachments are dropped. Proceed with caution if your source database is changing when running _couchfirehose_ or if your target database is not empty.
+
+If your use-case can cope with the source database being static and the target database being empty, then you can transfer data much faster than replication and take advantage of the easy filtering and transformation options that _couchfirehose_ offers.
+
+## Debugging
+
+To see extra debug messages, run _couchfirehose_ with the environment variable `DEBUG` set to `couchfirehose` e.g.
+
+```sh
+```sh
+> DEBUG=couchfirehose couchfirehose -s "$URL/source" -t "$URL/target"
+```
