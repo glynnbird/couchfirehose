@@ -1,6 +1,6 @@
 {
   "name": "couchfirehose",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CouchDB data transfer tool",
   "main": "index.js",
   "scripts": {

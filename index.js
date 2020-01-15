@@ -135,6 +135,7 @@ const main = async () => {
     })
     .on('end', async () => {
       changesFeedEnded = true
+      flush()
     })
 }
 
@@ -147,14 +148,13 @@ q.drain = () => {
   }
 }
 
-// timeout to catch the dregs of the buffer
-setInterval(() => {
-  const now = new Date().getTime()
-  if (buffer.length > 0 && now - lastBatchTS > 5000) {
+// catch the dregs of the buffer
+const flush = () => {
+  while (buffer.length > 0) {
     const n = Math.min(buffer.length, config.BATCH_SIZE)
     const docsToWrite = buffer.splice(0, n)
     q.push({ docs: docsToWrite })
   }
-}, 1000)
+}
 
 main()
