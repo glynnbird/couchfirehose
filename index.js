@@ -16,7 +16,6 @@ const CHANGES_BATCH_SIZE = config.BATCH_SIZE * 20
 // rate-limited, fixed-concurrency queue
 const qrate = require('qrate')
 let counter = 0
-let lastBatchTS = 0
 
 // buffer of unsaved documents
 const buffer = []
@@ -82,9 +81,6 @@ const main = async () => {
   }
   changesReader.get(opts)
     .on('batch', (batch, callback) => {
-      // Output the actual message contents
-      lastBatchTS = new Date().getTime()
-
       // loop through each doc in the batch
       for (var i in batch) {
         // find the doc
