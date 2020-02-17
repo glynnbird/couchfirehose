@@ -2,15 +2,11 @@ const config = require('./lib/config.js')
 const debug = require('debug')('couchfirehose')
 
 // cloudant connection for target writes
-const Nano = require('nano')
-const targetNano = Nano(config.TARGET_URL)
-const targetdb = targetNano.db.use(config.TARGET_DATABASE_NAME)
+const axios = require('axios').default
 
-// nano library pointing to our CouchDB instance
 // changes reader instance configured for our source database
-const nano = require('nano')(config.SOURCE_URL)
 const ChangesReader = require('changesreader')
-const changesReader = new ChangesReader(config.SOURCE_DATABASE_NAME, nano.request)
+const changesReader = new ChangesReader(config.SOURCE_DATABASE_NAME, config.SOURCE_URL)
 const CHANGES_BATCH_SIZE = config.BATCH_SIZE * 20
 
 // rate-limited, fixed-concurrency queue
@@ -46,7 +42,13 @@ const worker = async (batch) => {
     batch.new_edits = false
   }
   try {
-    await targetdb.bulk(batch)
+    const req = {
+      method: 'post',
+      baseURL: config.TARGET_URL,
+      url: config.TARGET_DATABASE_NAME + '/_bulk_docs',
+      data: batch
+    }
+    await axios(req)
     counter += batch.docs.length
     status()
   } catch (e) {
