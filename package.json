@@ -1,6 +1,6 @@
 {
   "name": "couchfirehose",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "CouchDB data transfer tool",
   "main": "index.js",
   "scripts": {
@@ -21,11 +21,11 @@
     "standard": "^14.3.1"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "changesreader": "^2.0.0",
-    "debug": "^4.1.1",
-    "qrate": "^1.2.0",
-    "yargs": "^15.1.0"
+    "axios": "^0.27.2",
+    "changesreader": "^2.1.4",
+    "debug": "^4.3.4",
+    "qrate": "^1.2.1",
+    "yargs": "^17.5.1"
   },
   "bin": {
     "couchfirehose": "bin/couchfirehose.bin.js"
