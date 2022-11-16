@@ -2,7 +2,7 @@ const config = require('./lib/config.js')
 const debug = require('debug')('couchfirehose')
 
 // cloudant connection for target writes
-const axios = require('axios').default
+const axios = require('axios')
 
 // changes reader instance configured for our source database
 const ChangesReader = require('changesreader')
@@ -32,7 +32,7 @@ const status = () => {
 const worker = async (batch) => {
   debug(`writing ${batch.docs.length} docs`)
   let containsRevs = false
-  for (var i in batch.docs) {
+  for (const i in batch.docs) {
     if (batch.docs[i]._rev) {
       containsRevs = true
       break
@@ -48,7 +48,7 @@ const worker = async (batch) => {
       url: config.TARGET_DATABASE_NAME + '/_bulk_docs',
       data: batch
     }
-    await axios(req)
+    await axios.request(req)
     counter += batch.docs.length
     status()
   } catch (e) {
@@ -84,7 +84,7 @@ const main = async () => {
   changesReader.get(opts)
     .on('batch', (batch, callback) => {
       // loop through each doc in the batch
-      for (var i in batch) {
+      for (const i in batch) {
         // find the doc
         let doc = batch[i].doc
 
