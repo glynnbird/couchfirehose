@@ -8,7 +8,9 @@ A proof-of-concept tool that allows Cloudant/CouchDB data to be transferred quic
 - It optionally doesn't transfer design documents documents.
 - It can optionally transform the document in transit.
 
-It is faster than replication but gets its speed by assuming that the source database is static and the the target database is empty. 
+It is faster than replication but gets its speed by assuming that the source database is static and the the target database is empty.
+
+> Note: As of Apache CouchDB 3.3, replication is ~3x faster than previous versions and it allows `winning_revs_only` replications, so it's worth exporing those CouchDB replication options first.
 
 ## How does it work?
 
