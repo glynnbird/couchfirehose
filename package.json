@@ -1,6 +1,6 @@
 {
   "name": "couchfirehose",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "CouchDB data transfer tool",
   "main": "index.js",
   "scripts": {
@@ -18,14 +18,14 @@
   "author": "Glynn Bird <glynn.bird@gmail.com>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "standard": "^17.0.0"
+    "standard": "^17.1.0"
   },
   "dependencies": {
-    "axios": "^1.2.2",
+    "axios": "^1.4.0",
     "changesreader": "^2.2.0",
     "debug": "^4.3.4",
     "qrate": "^1.2.1",
-    "yargs": "^17.6.2"
+    "yargs": "^17.7.2"
   },
   "bin": {
     "couchfirehose": "bin/couchfirehose.bin.js"
