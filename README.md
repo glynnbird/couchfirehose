@@ -1,5 +1,7 @@
 # couchfirehose
 
+> CouchDB replication is much better than when this project was created. Explore `use_bulk_get` and `winning_revs_only` flags to get much faster performance from CouchDB.
+
 A proof-of-concept tool that allows Cloudant/CouchDB data to be transferred quickly between a source database and a target database. This **is not** replication:
 
 - It doesn't transfer every revision of every document. Only the winners.
